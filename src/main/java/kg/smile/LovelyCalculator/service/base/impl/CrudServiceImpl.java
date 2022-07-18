@@ -1,6 +1,6 @@
 package kg.smile.LovelyCalculator.service.base.impl;
 
-import kg.smile.LovelyCalculator.exception.BaseException;
+import kg.smile.LovelyCalculator.exception.base.BaseException;
 import kg.smile.LovelyCalculator.service.base.CrudService;
 
 import lombok.AccessLevel;

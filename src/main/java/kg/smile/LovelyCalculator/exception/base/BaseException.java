@@ -1,4 +1,4 @@
-package kg.smile.LovelyCalculator.exception;
+package kg.smile.LovelyCalculator.exception.base;
 
 import lombok.AccessLevel;
 import lombok.Getter;

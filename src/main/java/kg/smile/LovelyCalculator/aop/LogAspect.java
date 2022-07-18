@@ -1,7 +1,7 @@
 package kg.smile.LovelyCalculator.aop;
 
 import kg.smile.LovelyCalculator.entity.Log;
-import kg.smile.LovelyCalculator.exception.BaseException;
+import kg.smile.LovelyCalculator.exception.base.BaseException;
 import kg.smile.LovelyCalculator.service.database.LogService;
 
 import lombok.AccessLevel;

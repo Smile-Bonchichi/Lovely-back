@@ -22,14 +22,12 @@ public class Log extends BaseEntity {
     @Column(name = "controller_name", nullable = false)
     String controllerName;
 
-    @Lob
+    @Column(name = "http_response_code")
+    Long httpResponseCode;
+
     @Column(name = "request_body", nullable = false)
     String requestBody;
 
-    @Lob
     @Column(name = "response_body")
     String responseBody;
-
-    @Column(name = "http_response_code", nullable = false)
-    Long httpResponseCode;
 }
