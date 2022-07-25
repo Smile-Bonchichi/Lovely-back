@@ -1,6 +1,9 @@
 package kg.smile.LovelyCalculator.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
+import kg.smile.LovelyCalculator.aop.SaveLog;
 import kg.smile.LovelyCalculator.dto.request.LovelyRequestDto;
 import kg.smile.LovelyCalculator.dto.response.LovelyResponseDto;
 import kg.smile.LovelyCalculator.service.LovelyCalculateService;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Api(value = "Контроллер для запросов на проверку совмстимости <3")
 @RestController
 @RequestMapping("/api/")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -30,6 +34,7 @@ public class LovelyController {
 
     @PostMapping("calculate")
     @ApiOperation("API для подсчета процента совместимости")
+    @SaveLog
     public ResponseEntity<LovelyResponseDto> getByPercentLovely(@Valid @RequestBody LovelyRequestDto lovelyRequestDto) {
         return ResponseEntity
                 .ok(lovelyCalculateService.calculatePercent(lovelyRequestDto));

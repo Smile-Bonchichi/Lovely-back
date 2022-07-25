@@ -1,4 +1,4 @@
-package kg.smile.LovelyCalculator.aop;
+package kg.smile.LovelyCalculator.aop.aspect;
 
 import kg.smile.LovelyCalculator.entity.Log;
 import kg.smile.LovelyCalculator.exception.base.BaseException;
@@ -11,6 +11,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,13 +28,15 @@ public class LogAspect {
         this.logService = logService;
     }
 
-    @Pointcut(value = "(within(@org.springframework.stereotype.Repository *)" +
+    @Pointcut(value = "@annotation(kg.smile.LovelyCalculator.aop.SaveLog) && " +
+            "(within(@org.springframework.stereotype.Repository *)" +
             " || within(@org.springframework.stereotype.Service *)" +
             " || within(@org.springframework.web.bind.annotation.RestController *))")
     public void springBeanPointcut() {
     }
 
-    @Pointcut(value = "(within(kg.smile.LovelyCalculator..*) || within(kg.smile.LovelyCalculator.controller..*))")
+    @Pointcut(value = "@annotation(kg.smile.LovelyCalculator.aop.SaveLog) && " +
+            "(within(kg.smile.LovelyCalculator..*) || within(kg.smile.LovelyCalculator.controller..*))")
     public void applicationPackagePointcut() {
     }
 

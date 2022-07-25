@@ -1,5 +1,7 @@
 package kg.smile.LovelyCalculator.service.impl;
 
+import com.ibm.icu.text.Transliterator;
+
 import kg.smile.LovelyCalculator.dto.request.LovelyRequestDto;
 import kg.smile.LovelyCalculator.dto.response.LovelyResponseDto;
 import kg.smile.LovelyCalculator.entity.Lovely;
@@ -59,7 +61,6 @@ public class LovelyCalculateServiceImpl implements LovelyCalculateService {
                     .percent(lovely.getPercentLovely())
                     .build();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new LovelyCalculateException(
                     "При подсчете процентов, произошла ошибка",
                     HttpStatus.INTERNAL_SERVER_ERROR
@@ -68,16 +69,24 @@ public class LovelyCalculateServiceImpl implements LovelyCalculateService {
     }
 
     private BigDecimal getPercentLovely(String firstName, String secondName) {
-        int sumF = 0;
-        int sumS = 0;
-        for (int i = 0; i < firstName.length(); i++) {
-            sumF += firstName.charAt(i);
+        String fullNameFirst = Transliterator
+                .getInstance("Cyrillic-Latin")
+                .transliterate(firstName);
+
+        String fullNameSecond = Transliterator
+                .getInstance("Cyrillic-Latin")
+                .transliterate(secondName);
+
+        int sumFirstName = 0;
+        int sumSencondName = 0;
+        for (int i = 0; i < fullNameFirst.length(); i++) {
+            sumFirstName += fullNameFirst.charAt(i);
         }
 
-        for (int i = 0; i < secondName.length(); i++) {
-            sumS += secondName.charAt(i);
+        for (int i = 0; i < fullNameSecond.length(); i++) {
+            sumSencondName += fullNameSecond.charAt(i);
         }
 
-        return new BigDecimal(String.valueOf((double) ((sumF + sumS) / 100) / (random.nextInt(9) + 1)));
+        return new BigDecimal(String.valueOf((double) ((sumFirstName + sumSencondName) / 100) / (random.nextInt(9) + 1)));
     }
 }
