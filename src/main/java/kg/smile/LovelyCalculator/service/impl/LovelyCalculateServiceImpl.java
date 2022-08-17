@@ -78,15 +78,15 @@ public class LovelyCalculateServiceImpl implements LovelyCalculateService {
                 .transliterate(secondName);
 
         int sumFirstName = 0;
-        int sumSencondName = 0;
+        int sumSecondName = 0;
         for (int i = 0; i < fullNameFirst.length(); i++) {
             sumFirstName += fullNameFirst.charAt(i);
         }
 
         for (int i = 0; i < fullNameSecond.length(); i++) {
-            sumSencondName += fullNameSecond.charAt(i);
+            sumSecondName += fullNameSecond.charAt(i);
         }
 
-        return new BigDecimal(String.valueOf((double) ((sumFirstName + sumSencondName) / 100) / (random.nextInt(9) + 1)));
+        return new BigDecimal(String.valueOf((double) ((sumFirstName + sumSecondName) / 100) / (random.nextInt(9) + 1)));
     }
 }

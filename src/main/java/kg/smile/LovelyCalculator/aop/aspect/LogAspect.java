@@ -45,41 +45,19 @@ public class LogAspect {
         Log log = logService.saveOrUpdate(
                 Log.builder()
                         .controllerName(joinPoint.getSignature().getDeclaringTypeName())
-                        .requestBody("Enter: {" +
-                                joinPoint.getSignature().getDeclaringTypeName() +
-                                "}.{" +
-                                joinPoint.getSignature().getName() +
-                                "}() with argument[" +
-                                joinPoint.getArgs().length +
-                                "] = {" +
-                                Arrays.toString(joinPoint.getArgs()) +
-                                "}"
-                        )
+                        .methodName(joinPoint.getSignature().getName())
+                        .requestBody("{" + Arrays.toString(joinPoint.getArgs()) + "}")
                         .build()
         );
         try {
             Object result = joinPoint.proceed();
             log.setHttpResponseCode(200L);
-            log.setResponseBody("Exit: {" +
-                    joinPoint.getSignature().getDeclaringTypeName() +
-                    "}.{" +
-                    joinPoint.getSignature().getName() +
-                    "}() with result = {" +
-                    result +
-                    "}"
-            );
+            log.setResponseBody("{" + result + "}");
             logService.saveOrUpdate(log);
 
             return result;
         } catch (BaseException e) {
-            log.setResponseBody("Exception in {" +
-                    joinPoint.getSignature().getDeclaringTypeName() +
-                    "}.{" +
-                    joinPoint.getSignature().getName() +
-                    "}() with cause = {" +
-                    (e.getMessage() != null ? e.getMessage() : "NULL") +
-                    "}"
-            );
+            log.setResponseBody("{" + (e.getMessage() != null ? e.getMessage() : "NULL") + "}");
             log.setHttpResponseCode((long) e.getHttpStatus().value());
             logService.saveOrUpdate(log);
 

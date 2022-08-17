@@ -21,6 +21,9 @@ public class Log extends BaseEntity {
     @Column(name = "controller_name", nullable = false)
     String controllerName;
 
+    @Column(name = "method_name", nullable = false)
+    String methodName;
+
     @Column(name = "http_response_code")
     Long httpResponseCode;
 
